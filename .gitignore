@@ -123,7 +123,7 @@ __vm/
 vc-fileutils.settings
 
 # Visual Studio Code
-.vscode/*
+# .vscode/*
 !.vscode/extensions.json
 
 # Simulation files
@@ -168,3 +168,4 @@ __pycache__
 tags
 *.logs
 *.bak
+.history/

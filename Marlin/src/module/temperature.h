@@ -740,26 +740,24 @@ class Temperature {
     //high level conversion routines, for use outside of temperature.cpp
     //inline so that there is no performance decrease.
     //deg=degreeCelsius
-
-    static celsius_float_t degHotend(const uint8_t E_NAME) {
-      return TERN0(HAS_HOTEND, temp_hotend[HOTEND_INDEX].celsius);
-    }
-
-    static celsius_t wholeDegHotend(const uint8_t E_NAME) {
-      return TERN0(HAS_HOTEND, static_cast<celsius_t>(temp_hotend[HOTEND_INDEX].celsius + 0.5f));
-    }
-
-    #if ENABLED(SHOW_TEMP_ADC_VALUES)
-      static raw_adc_t rawHotendTemp(const uint8_t E_NAME) {
-        return TERN0(HAS_HOTEND, temp_hotend[HOTEND_INDEX].getraw());
-      }
-    #endif
-
-    static celsius_t degTargetHotend(const uint8_t E_NAME) {
-      return TERN0(HAS_HOTEND, temp_hotend[HOTEND_INDEX].target);
-    }
-
     #if HAS_HOTEND
+      static celsius_float_t degHotend(const uint8_t E_NAME) {
+        return TERN0(HAS_HOTEND, temp_hotend[HOTEND_INDEX].celsius);
+      }
+
+      static celsius_t wholeDegHotend(const uint8_t E_NAME) {
+        return TERN0(HAS_HOTEND, static_cast<celsius_t>(temp_hotend[HOTEND_INDEX].celsius + 0.5f));
+      }
+
+      #if ENABLED(SHOW_TEMP_ADC_VALUES)
+        static raw_adc_t rawHotendTemp(const uint8_t E_NAME) {
+          return TERN0(HAS_HOTEND, temp_hotend[HOTEND_INDEX].getraw());
+        }
+      #endif
+
+      static celsius_t degTargetHotend(const uint8_t E_NAME) {
+        return TERN0(HAS_HOTEND, temp_hotend[HOTEND_INDEX].target);
+      }
 
       static void setTargetHotend(const celsius_t celsius, const uint8_t E_NAME) {
         const uint8_t ee = HOTEND_INDEX;

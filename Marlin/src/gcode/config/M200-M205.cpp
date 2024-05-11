@@ -282,7 +282,9 @@ void GcodeSuite::M205() {
     }
   #endif
   #if HAS_CLASSIC_JERK
+#if HAS_Z_AXIS  
     bool seenZ = false;
+#endif    
     LOGICAL_AXIS_CODE(
       if (parser.seenval('E')) planner.set_max_jerk(E_AXIS, parser.value_linear_units()),
       if (parser.seenval('X')) planner.set_max_jerk(X_AXIS, parser.value_linear_units()),

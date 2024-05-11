@@ -451,8 +451,11 @@ void menu_backlash();
 
   // M201 / M204 Accelerations
   void menu_advanced_acceleration() {
+#if HAS_Z_AXIS  
     const float max_accel = _MAX(planner.settings.max_acceleration_mm_per_s2[A_AXIS], planner.settings.max_acceleration_mm_per_s2[B_AXIS], planner.settings.max_acceleration_mm_per_s2[C_AXIS]);
-
+#else
+    const float max_accel = _MAX(planner.settings.max_acceleration_mm_per_s2[A_AXIS], planner.settings.max_acceleration_mm_per_s2[B_AXIS]);
+#endif
     // M201 settings
     constexpr xyze_ulong_t max_accel_edit =
       #ifdef MAX_ACCEL_EDIT_VALUES
@@ -534,7 +537,11 @@ void menu_backlash();
       ;
 
       LOOP_LOGICAL_AXES(a) {
+      #if HAS_Z_AXIS
         if (a == C_AXIS || TERN0(HAS_EXTRUDERS, a == E_AXIS))
+      #else
+        if ( TERN0(HAS_EXTRUDERS, a == E_AXIS))
+      #endif
           EDIT_ITEM_FAST_N(float52sign, a, MSG_VN_JERK, &planner.max_jerk[a], 0.1f, max_jerk_edit[a]);
         else
           EDIT_ITEM_FAST_N(float3, a, MSG_VN_JERK, &planner.max_jerk[a], 1.0f, max_jerk_edit[a]);

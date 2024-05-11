@@ -8,7 +8,7 @@
         {
             "name": "PlatformIO",
             "includePath": [
-                "d:/!!Work/Marlin/Firmware/Marlin",
+                "y:/Marlin/Firmware/Marlin",
                 "C:/Users/Grzegorz/.platformio/packages/framework-arduino-avr/libraries/Wire/src",
                 "C:/Users/Grzegorz/.platformio/packages/framework-arduino-avr/libraries/SPI/src",
                 "C:/Users/Grzegorz/.platformio/packages/framework-arduino-avr/cores/arduino",
@@ -21,7 +21,7 @@
             "browse": {
                 "limitSymbolsToIncludedHeaders": true,
                 "path": [
-                    "d:/!!Work/Marlin/Firmware/Marlin",
+                    "y:/Marlin/Firmware/Marlin",
                     "C:/Users/Grzegorz/.platformio/packages/framework-arduino-avr/libraries/Wire/src",
                     "C:/Users/Grzegorz/.platformio/packages/framework-arduino-avr/libraries/SPI/src",
                     "C:/Users/Grzegorz/.platformio/packages/framework-arduino-avr/cores/arduino",

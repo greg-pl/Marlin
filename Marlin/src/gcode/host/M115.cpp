@@ -194,27 +194,54 @@ void GcodeSuite::M115() {
 
     // Machine Geometry
     #if ENABLED(M115_GEOMETRY_REPORT)
-      const xyz_pos_t bmin = { 0, 0, 0 },
-                      bmax = { X_BED_SIZE , Y_BED_SIZE, Z_MAX_POS },
-                      dmin = { X_MIN_POS, Y_MIN_POS, Z_MIN_POS },
-                      dmax = { X_MAX_POS, Y_MAX_POS, Z_MAX_POS };
+      #if HAS_Z_AXIS
+        const xyz_pos_t bmin = { 0, 0, 0 },
+                        bmax = { X_BED_SIZE , Y_BED_SIZE, Z_MAX_POS },
+                        dmin = { X_MIN_POS, Y_MIN_POS, Z_MIN_POS },
+                        dmax = { X_MAX_POS, Y_MAX_POS, Z_MAX_POS };
+      #else
+        const xyz_pos_t bmin = { 0, 0 },
+                        bmax = { X_BED_SIZE , Y_BED_SIZE },
+                        dmin = { X_MIN_POS, Y_MIN_POS },
+                        dmax = { X_MAX_POS, Y_MAX_POS };
+
+      #endif
       xyz_pos_t cmin = bmin, cmax = bmax;
       apply_motion_limits(cmin);
       apply_motion_limits(cmax);
       const xyz_pos_t lmin = dmin.asLogical(), lmax = dmax.asLogical(),
                       wmin = cmin.asLogical(), wmax = cmax.asLogical();
-      SERIAL_ECHOLNPGM(
-        "area:{"
-          "full:{"
-            "min:{x:", lmin.x, ",y:", lmin.y, ",z:", lmin.z, "},"
-            "max:{x:", lmax.x, ",y:", lmax.y, ",z:", lmax.z, "}"
-          "},"
-          "work:{"
-            "min:{x:", wmin.x, ",y:", wmin.y, ",z:", wmin.z, "},"
-            "max:{x:", wmax.x, ",y:", wmax.y, ",z:", wmax.z, "}",
+
+      #if HAS_Z_AXIS
+        SERIAL_ECHOLNPGM(
+          "area:{"
+            "full:{"
+              "min:{x:", lmin.x, ",y:", lmin.y, ",z:", lmin.z, "},"
+              "max:{x:", lmax.x, ",y:", lmax.y, ",z:", lmax.z, "}"
+            "},"
+            "work:{"
+              "min:{x:", wmin.x, ",y:", wmin.y, ",z:", wmin.z, "},"
+              "max:{x:", wmax.x, ",y:", wmax.y, ",z:", wmax.z, "}",
+            "}"
           "}"
-        "}"
-      );
+        );
+
+      #else
+
+        SERIAL_ECHOLNPGM(
+          "area:{"
+            "full:{"
+              "min:{x:", lmin.x, ",y:", lmin.y,  "},"
+              "max:{x:", lmax.x, ",y:", lmax.y,  "}"
+            "},"
+            "work:{"
+              "min:{x:", wmin.x, ",y:", wmin.y,  "},"
+              "max:{x:", wmax.x, ",y:", wmax.y,  "}",
+            "}"
+          "}"
+        );      
+      #endif
+                                                  
     #endif
 
   #endif // EXTENDED_CAPABILITIES_REPORT

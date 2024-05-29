@@ -169,3 +169,4 @@ tags
 *.logs
 *.bak
 .history/
+.vscode/c_cpp_properties.json

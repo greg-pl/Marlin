@@ -68,6 +68,7 @@ Endstops::endstop_mask_t Endstops::live_state = 0;
   #define READ_ENDSTOP(P) ((P == Z_MIN_PIN) ? bdp_state : READ(P))
 #else
   #define READ_ENDSTOP(P) READ(P)
+//  #define READ_ENDSTOP(P) (!READ(P))
 #endif
 
 #if ENDSTOP_NOISE_THRESHOLD
